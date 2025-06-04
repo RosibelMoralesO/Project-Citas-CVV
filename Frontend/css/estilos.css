@@ -207,3 +207,11 @@ main ul li.styledecornone {
     font-size: 0.9rem;
   }
 }
+
+ .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu a {
+    transition: background-color 0.2s;
+  }

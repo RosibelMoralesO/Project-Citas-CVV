@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
   // Cargar header y footer con manejo de errores
   const loadPartials = async () => {
     try {
@@ -7,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!headerResponse.ok) throw new Error('Header no encontrado');
       const headerData = await headerResponse.text();
       document.getElementById('header-container').innerHTML = headerData;
+
+      // Cargar header administracion
+      const headerAdminResponse = await fetch('/partials/header_admin.html');
+      if (!headerAdminResponse.ok) throw new Error('Header no encontrado');
+      const headerAdminData = await headerAdminResponse.text();
+      document.getElementById('header-container-admin').innerHTML = headerAdminData;
 
       // Cargar footer
       const footerResponse = await fetch('/partials/footer.html');
