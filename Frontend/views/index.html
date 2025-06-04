@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación Puebla</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+  <!-- Incluir header -->
+  <div id="header-container"></div>
+
+  <!-- Contenido principal -->
+  <main class="flex-grow mx-auto mt-4 px-6 text-base sm:text-lg">
+    <h2 class="text-4xl font-bold mb-4 py-3 px-20 text-[#494848]">Estimado ciudadano:</h2>
+    <p class="mb-6 px-20 text-[#808080]">A continuación, se muestran los requisitos que deberá presentar ante el Centro
+      de Atención para
+      realizar el trámite; favor de seleccionar aquéllos con los que cuenta:</p>
+
+    <ul class="space-y-2 list-disc list-inside px-20 text-[#808080]">
+      <li class="styledecor px-6">Folio de la cita impreso <span class="text-red-600">*</span></li>
+      <li class="styledecor px-6">Original y copia de identificación oficial vigente <span class="text-red-600">*</span>
+      </li>
+      <li class="styledecor px-6">Original y copia de la tarjeta de circulación <span class="text-red-600">*</span></li>
+      <li class="styledecor px-6">Para vehículos nuevos (adquiridos en 2022 y 2023):<br>
+      <li class="styledecornone px-11">Copia de la factura, carta factura o contrato de arrendamiento. Original de la
+        papeleta de la verificación del
+        semestre anterior <span class="text-red-600">*</span></li>
+      </li>
+    </ul>
+
+    <p class="mt-2 px-20 text-[#808080]">Si usted ya cuenta con una cita agendada y desea consultarla, dé click <a
+        href="https://ventanilladigital.puebla.gob.mx/" class="text-blue-600 underline">aquí</a>.</p>
+    <!--Ver lo de las ubicaciones de los mapas-->
+    <p class="mt-2 px-20 text-red-600">(*)Requisitos obligatorios.</p>
+
+    <div class="mt-4 mb-10 flex items-center justify-between px-14">
+      <div class="flex items-start gap-2 max-w-[60%]">
+        <input type="checkbox" id="acepto" class="mt-2">
+        <label for="acepto" class="text-lg text-[#808080]">
+          Declaro haber leído y entendido todas las indicaciones, condiciones y requisitos.
+        </label>
+      </div>
+    </div>
+    <div class="flex justify-end relative">
+      <a href="/views/agender_cita.html">
+        <button class="h-[48px] px-6 bg-[#570e28] text-white rounded-full text-center">
+          Agendar
+        </button>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Incluir footer -->
+  <div id="footer-container"></div>
+
+  <!-- Script para cargar los partials -->
+  <script>
+    // Función para cargar los partials
+    function loadPartials() {
+      // Cargar header
+      fetch('/partials/header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-container').innerHTML = data;
+        });
+
+      // Cargar footer
+      fetch('/partials/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+        });
+    }
+
+    // Llamar a la función cuando se cargue la página
+    window.onload = loadPartials;
+  </script>
+</body>
+
+</html>

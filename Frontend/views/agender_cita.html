@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación Puebla</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+
+<body class="bg-white text-gray-800">
+  <!-- Header incluido -->
+  <div id="header-container"></div>
+
+  <!-- Contenido principal -->
+  <main class="mx-auto mt-10 px-6 text-base sm:text-lg" role="main">
+    <h2 class="text-4xl font-bold py-6 px-20 text-[#494848]">Cita para realizar la Verificación Vehicular</h2>
+
+    <div class="flex flex-col xl:flex-row xl:divide-x-2 xl:divide-[#f5f5f5] max-w-[1264px] mx-auto">
+
+      <!-- Sección izquierda (Formulario) -->
+      <div class="w-full xl:w-2/3 p-6">
+
+        <!-- Paso 1 -->
+        <div class="mb-6 border border-gray-200 rounded-lg overflow-hidden">
+          <div class="accordion-header cursor-pointer bg-[#f5f5f5] px-4 py-3 flex items-center" data-target="paso1">
+            <div class="flex items-center">
+              <span class="text-xl font-bold mr-2">Paso 1</span>
+              <span class="text-xl ml-4">Seleccione centro de atención</span>
+            </div>
+            <svg class="w-5 h-5 ml-auto transition-transform transform" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="paso1" class="accordion-content px-4 py-4 bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <p class="text-lg text-[#808080] mb-1">Centro de atención: <span class="text-[#808080]">*</span></p>
+                <select name="centro" id="centroAtencion" class="w-full border border-gray-300 rounded-md px-2 py-2">
+                  <option selected value="0">Seleccione:</option>
+                  <option value="1326">CENTRO DE VERIFICACIÓN VEHICULAR 01, ACATLÁN DE OSORIO</option>
+                  <option value="1327">CENTRO DE VERIFICACIÓN VEHICULAR 02, ALTEPEXI</option>
+                  <option value="1328">CENTRO DE VERIFICACIÓN VEHICULAR 03, AMOZOC</option>
+                  <option value="1290">CENTRO DE VERIFICACIÓN VEHICULAR 04, ATLIXCO</option>
+                </select>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-md">
+                <p class="text-lg text-[#808080]">
+                  Si requiere conocer la ubicación de cada uno de los lugares donde puede realizar el trámite, dé
+                  <a href="#" class="text-blue-600 underline">click aquí</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="mb-6 border border-gray-200 rounded-lg overflow-hidden hidden" id="paso2-container">
+          <div class="accordion-header cursor-pointer bg-[#f5f5f5] px-4 py-3 flex items-center" data-target="paso2">
+            <div class="flex items-center">
+              <span class="text-xl font-bold mr-2">Paso 2</span>
+              <span class="text-xl ml-4">Seleccione la fecha y hora de la cita</span>
+            </div>
+            <svg class="w-5 h-5 ml-auto transition-transform transform rotate-180" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="paso2" class="accordion-content px-4 py-4 bg-white hidden">
+            <p class="text-lg text-[#808080] mb-2">Seleccione una fecha y horario disponible.</p>
+            <input type="date" id="fechaCita" class="border border-gray-300 rounded px-3 py-2 mb-4" />
+            <select id="horaCita" class="border border-gray-300 rounded px-3 py-2">
+              <option value="">Seleccionar horario</option>
+              <!-- Las opciones se generarán dinámicamente con JavaScript -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="mb-6 border border-gray-200 rounded-lg overflow-hidden hidden" id="paso3-container">
+          <div class="accordion-header cursor-pointer bg-[#f5f5f5] px-4 py-3 flex items-center" data-target="paso3">
+            <div class="flex items-center">
+              <span class="text-xl font-bold mr-2">Paso 3</span>
+              <span class="text-xl ml-4">Información del vehículo</span>
+            </div>
+            <svg class="w-5 h-5 ml-auto transition-transform transform rotate-180" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="paso3" class="accordion-content px-4 py-4 bg-white hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex items-center space-x-2 sm:col-span-2">
+              <input type="checkbox" id="voluntaria" />
+              <label for="voluntaria">Verificación voluntaria</label>
+            </div>
+            <input type="text" id="placa" placeholder="Placa *" class="border px-3 py-2 rounded" />
+            <input type="text" id="numeroSerie" placeholder="Número de serie *" class="border px-3 py-2 rounded" />
+            <input type="text" id="tarjetaCirculacion" placeholder="No. tarjeta de circulación *"
+              class="border px-3 py-2 rounded" />
+            <input type="text" id="modelo" placeholder="Modelo del registro *" class="border px-3 py-2 rounded" />
+            <input type="text" id="marca" placeholder="Marca *" class="border px-3 py-2 rounded" />
+            <input type="text" id="anio" placeholder="Año *" class="border px-3 py-2 rounded" />
+            <select id="estado" class="border px-3 py-2 rounded">
+              <option value="">Estado *</option>
+              <option value="Puebla" selected>Puebla</option>
+              <option value="Otro">Mexico</option>
+              <option value="Otro">Veracruz</option>
+            </select>
+            <select id="tipoCombustible" class="border px-3 py-2 rounded">
+              <option value="">Tipo de combustible *</option>
+              <option value="Gasolina">Gasolina</option>
+              <option value="Diésel">Diésel</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="mb-6 border border-gray-200 rounded-lg overflow-hidden hidden" id="paso4-container">
+          <div class="accordion-header cursor-pointer bg-[#f5f5f5] px-4 py-3 flex items-center" data-target="paso4">
+            <div class="flex items-center">
+              <span class="text-xl font-bold mr-2">Paso 4</span>
+              <span class="text-xl ml-4">Información de contacto</span>
+            </div>
+            <svg class="w-5 h-5 ml-auto transition-transform transform rotate-180" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="paso4" class="accordion-content px-4 py-4 bg-white hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex items-center space-x-2 sm:col-span-2">
+              <input type="checkbox" id="moral" />
+              <label for="moral">Persona moral</label>
+            </div>
+            <input type="text" id="nombrePropietario" placeholder="Nombre del Propietario *"
+              class="border px-3 py-2 rounded" />
+            <input type="email" id="email" placeholder="Correo electrónico *" class="border px-3 py-2 rounded" />
+          </div>
+
+          <!-- Botones de acción (nuevos) -->
+          <div class="flex justify-center gap-4 p-4 bg-white border-t border-gray-200">
+            <button id="cancelarCita" class="h-[48px] px-6 bg-gray-500 text-white rounded-full text-lg">
+              Cancelar Cita
+            </button>
+            <button id="confirmarCita" class="h-[48px] px-6 bg-[#570e28] text-white rounded-full text-lg" disabled>
+              Confirmar Cita
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección derecha (Resumen de cita) -->
+      <div class="w-full xl:w-1/3 px-6">
+        <div class="text-2xl mb-4 text-[#494848]">Resumen de cita:</div>
+        <div class="space-y-4">
+          <p class="text-[#494848]"><strong>Centro de atención:</strong><br><span id="resumenCentro"
+              class="text-[#808080]">No seleccionado</span></p>
+          <p class="text-[#494848]"><strong>Día de la cita:</strong><br><span id="resumenFecha"
+              class="text-[#808080]">No seleccionado</span></p>
+          <p class="text-[#494848]"><strong>Hora de la cita:</strong><br><span id="resumenHora"
+              class="text-[#808080]">No seleccionado</span></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal de cancelación -->
+  <div id="cancelarModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+      <h3 class="text-xl font-bold mb-4 text-center">¿Está seguro(a) que desea cancelar su cita?</h3>
+      <div class="flex justify-center gap-4 mt-6">
+        <button id="cancelarNo" class="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg">Cancelar</button>
+        <button id="cancelarSi" class="px-6 py-2 bg-[#570e28] text-white rounded-lg">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer incluido -->
+  <div id="footer-container"></div>
+
+  <!-- JavaScript -->
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
