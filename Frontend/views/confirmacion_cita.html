@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verificación Puebla</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/Frontend/css/estilos.css">
 </head>
 
 <body class="bg-white text-gray-800 min-h-screen flex flex-col">
@@ -14,13 +14,13 @@
   <div id="header-container"></div>
 
   <!-- Contenido principal -->
-  <main class="flex-grow mx-auto mt-4 px-6 text-base sm:text-lg">
+  <main class="flex-grow mx-auto mt-2 px-6 text-base sm:text-lg">
     <h2 class="text-4xl font-bold mb-4 py-3 px-20 text-[#494848]">Confirmación de cita</h2>
-    <p class="mb-6 px-20 text-[#808080]">Estimado(a) "Name" su cita para realizar la Verificación Vehicular ha quedado
+    <p class="mb-2 px-20 text-[#808080]">Estimado(a) "Name" su cita para realizar la Verificación Vehicular ha quedado
       agendada para el "fecha" , a las "hora" horas. Por lo que le reiteramos debe presentarse en el "Centro de atención
       de Cvv" ubicado en "direccion" en la fecha y hora antes mencionadas.</p>
     <p class="mb-2 px-20 text-[#808080] text-center">Le recordamos que el Folio de su Cita es:</p>
-    <p class="mb-6 px-20 text-[#808080] font-bold text-4xl text-center text-[#C79B66]">"folio"</p>
+    <p class="mb-2 px-20 text-[#808080] font-bold text-4xl text-center text-[#C79B66]">"folio"</p>
 
     <div class="flex flex-col md:flex-row px-20 gap-8">
       <!-- Sección de Notas -->
@@ -31,10 +31,11 @@
           <li class="styledecor px-6">Presentarse con original y copia de todos los requisitos.</li>
           <li class="styledecor px-6">Vehículo temperatura normal de operación para realizar la prueba.</li>
           <li class="styledecor px-6">No prenda y apague el vehículo mientras se encuentra en espera.</li>
-          <li class="styledecor px-6">Vehículos nuevos realizar prueba de verificación con al menos 300 km recorridos.</li>
+          <li class="styledecor px-6">Vehículos nuevos realizar prueba de verificación con al menos 300 km recorridos.
+          </li>
         </ul>
       </div>
-      
+
       <!-- Sección de Requisitos -->
       <div class="w-full md:w-1/2">
         <h2 class="text-2xl font-bold mb-2 py-4 text-[#494848]">Requisitos obligatorios</h2>
@@ -47,47 +48,42 @@
       </div>
     </div>
     <!-- Botones centrados en la columna derecha -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
-            <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
-              Imprimir
-            </button>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+      <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
+        Imprimir
+      </button>
 
-          <a href="/views/agender_cita.html">
-            <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
-              Nueva cita
-            </button>
-          </a>
-          
-            <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
-              Cancelar
-            </button>
+      <a href="/Frontend/views/agender_cita.html">
+        <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
+          Nueva cita
+        </button>
+      </a>
 
-        </div>
+      <button class="h-[48px] px-4 bg-[#570e28] text-white text-lg rounded-full shadow">
+        Cancelar cita
+      </button>
+
+    </div>
   </main>
 
-  <!-- Incluir footer -->
   <div id="footer-container"></div>
 
-  <!-- Script para cargar los partials -->
   <script>
-    // Función para cargar los partials
+
     function loadPartials() {
-      // Cargar header
-      fetch('/partials/header.html')
+
+      fetch('/Frontend/partials/header.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('header-container').innerHTML = data;
         });
-
-      // Cargar footer
-      fetch('/partials/footer.html')
+      fetch('/Frontend/partials/footer.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('footer-container').innerHTML = data;
         });
     }
 
-    // Llamar a la función cuando se cargue la página
     window.onload = loadPartials;
   </script>
 </body>

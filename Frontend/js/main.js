@@ -1,28 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
   
-  // Cargar header y footer con manejo de errores
+  // Cargar headers y footer con manejo de errores
   const loadPartials = async () => {
     try {
-      // Cargar header
-      const headerResponse = await fetch('/partials/header.html');
+      // Cargar header para usuarios
+      const headerResponse = await fetch('/Frontend/partials/header.html');
       if (!headerResponse.ok) throw new Error('Header no encontrado');
       const headerData = await headerResponse.text();
       document.getElementById('header-container').innerHTML = headerData;
 
-      // Cargar header administracion
-      const headerAdminResponse = await fetch('/partials/header_admin.html');
-      if (!headerAdminResponse.ok) throw new Error('Header no encontrado');
+      // Cargar header para administración
+      const headerAdminResponse = await fetch('/Frontend/partials/header_admin.html');
+      if (!headerAdminResponse.ok) throw new Error('Header admin no encontrado');
       const headerAdminData = await headerAdminResponse.text();
       document.getElementById('header-container-admin').innerHTML = headerAdminData;
 
       // Cargar footer
-      const footerResponse = await fetch('/partials/footer.html');
+      const footerResponse = await fetch('/Frontend/partials/footer.html');
       if (!footerResponse.ok) throw new Error('Footer no encontrado');
       const footerData = await footerResponse.text();
       document.getElementById('footer-container').innerHTML = footerData;
+    
     } catch (error) {
       console.error('Error cargando partials:', error);
-    }
+    };
   };
 
   loadPartials();
@@ -62,6 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const cancelarNo = document.getElementById('cancelarNo');
   const cancelarSi = document.getElementById('cancelarSi');
 
+  // Inicializar botón de confirmar como oculto y deshabilitado
+  confirmarCita.classList.add('hidden');
+  confirmarCita.disabled = true;
+
   // 1. Configuración inicial del acordeón (Paso 1 siempre visible)
   document.querySelector('[data-target="paso1"]').style.pointerEvents = 'none';
   document.getElementById('paso1').classList.remove('hidden');
@@ -98,16 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Días inhábiles
-  //Array de fechas en formato YYYY-MM-DD
-  const diasInhabiles = [
-
-  ];
+  const diasInhabiles = [];
 
   // Función para deshabilitar días inhábiles en el input de fecha
   function configurarDiasInhabiles() {
     fechaCita.addEventListener('input', function () {
       const fechaSeleccionada = this.value;
-
       if (diasInhabiles.includes(fechaSeleccionada)) {
         alert('Este día no está disponible para agendar citas. Por favor seleccione otra fecha.');
         this.value = '';
@@ -120,14 +121,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Event listeners para los acordeones (excepto paso 1)
   const accordionHeaders = document.querySelectorAll('.accordion-header');
-
   accordionHeaders.forEach(header => {
     if (header.getAttribute('data-target') !== 'paso1') {
       header.addEventListener('click', function () {
         const targetId = this.getAttribute('data-target');
         const targetContent = document.getElementById(targetId);
         const icon = this.querySelector('svg');
-
         targetContent.classList.toggle('hidden');
         icon.classList.toggle('rotate-180');
       });
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Validación paso 3 (datos del vehículo)
   const camposVehiculo = [placa, numeroSerie, tarjetaCirculacion, modelo, marca, anio, tipoCombustible];
-
   camposVehiculo.forEach(campo => {
     campo.addEventListener('change', validarPaso3);
     campo.addEventListener('input', validarPaso3);
@@ -203,22 +201,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Validar solo números y máximo 4 dígitos para año
   anio.addEventListener('input', function (e) {
-    // Permitir solo números
     this.value = this.value.replace(/[^0-9]/g, '');
-
-    // Limitar a 4 caracteres
     if (this.value.length > 4) {
       this.value = this.value.slice(0, 4);
     }
   });
 
   function validarPaso3() {
-    const todosLlenos = camposVehiculo.every(campo => campo.value.trim() !== '');
+    const todosLlenos = camposVehiculo.every(campo => {
+      if (campo === anio) {
+        return campo.value.trim() !== '' && campo.value.length === 4;
+      }
+      return campo.value.trim() !== '';
+    });
 
     if (todosLlenos) {
       paso4Container.classList.remove('hidden');
       document.getElementById('paso4').classList.remove('hidden');
       document.querySelector('[data-target="paso4"] svg').classList.remove('rotate-180');
+      validarPaso4(); // Validar también el paso 4 por si ya hay datos
     } else {
       paso4Container.classList.add('hidden');
       confirmarCita.classList.add('hidden');
@@ -227,8 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Validación paso 4 (datos de contacto)
-  const camposContacto = [nombrePropietario, nombreTramitante, email];
-
+  const camposContacto = [nombrePropietario, email];
   camposContacto.forEach(campo => {
     campo.addEventListener('change', validarPaso4);
     campo.addEventListener('input', validarPaso4);
@@ -237,8 +237,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function validarPaso4() {
     const todosLlenos = camposContacto.every(campo => campo.value.trim() !== '');
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+    const estadoValido = voluntariaCheckbox.checked ? estado.value !== 'Puebla' : true;
 
-    if (todosLlenos && emailValido) {
+    if (todosLlenos && emailValido && estadoValido) {
       confirmarCita.disabled = false;
       confirmarCita.classList.remove('hidden');
     } else {
@@ -252,8 +253,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const select = document.getElementById('horaCita');
     select.innerHTML = '<option value="">Seleccionar horario</option>';
 
-    const horaInicio = 9; // 9 AM
-    const horaFin = 16; // 4 PM
+    const horaInicio = 8; // 8 AM
+    const horaFin = 20; // 8 PM
 
     for (let h = horaInicio; h <= horaFin; h++) {
       for (let m = 0; m < 60; m += 8) {
@@ -273,70 +274,48 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Verificación voluntaria (cambiar estado)
-  voluntariaCheckbox.addEventListener('change', function () {
+  voluntariaCheckbox.addEventListener('change', function() {
     estado.disabled = !this.checked;
-    estado.required = this.checked;
-
+    
     if (!this.checked) {
-      // Verificar si Puebla no está en las opciones y agregarla si es necesario
-      const opcionPueblaExistente = Array.from(estado.options).find(opt => opt.value === 'Puebla');
-      if (!opcionPueblaExistente) {
-        // Agregar Puebla como primera opción
-        const opcionPuebla = new Option('Puebla', 'Puebla');
-        estado.insertBefore(opcionPuebla, estado.options[0]);
-      }
-      // Establecer Puebla como valor seleccionado
+      // Forzar Puebla cuando no es voluntaria
       estado.value = 'Puebla';
-    } else {
-      // Eliminar Puebla si existe en las opciones
-      const opcionPuebla = Array.from(estado.options).find(opt => opt.value === 'Puebla');
-      if (opcionPuebla) {
-        estado.remove(estado.selectedIndex);
-      }
     }
+    validarPaso4(); // Revalidar el formulario
   });
 
   // Inicializar estado del campo estado
-  estado.disabled = !voluntariaCheckbox.checked;
-  estado.required = voluntariaCheckbox.checked;
-
-  // Configurar estado inicial
-  if (!voluntariaCheckbox.checked) {
-    const opcionPueblaExistente = Array.from(estado.options).find(opt => opt.value === 'Puebla');
-    if (!opcionPueblaExistente) {
-      const opcionPuebla = new Option('Puebla', 'Puebla');
-      estado.insertBefore(opcionPuebla, estado.options[0]);
-    }
-    estado.value = 'Puebla';
-  }
+  estado.disabled = true;
+  estado.value = 'Puebla';
 
   // Persona moral (cambiar placeholder)
-  moralCheckbox.addEventListener('change', function () {
-    nombrePropietario.placeholder = this.checked
-      ? "Razón social *"
-      : "Nombre del Propietario *";
+  moralCheckbox.addEventListener('change', function() {
+    const placeholder = this.checked ? "Razón social *" : "Nombre del Propietario *";
+    nombrePropietario.placeholder = placeholder;
+    
+    // También actualizar el atributo placeholder directamente
+    nombrePropietario.setAttribute('placeholder', placeholder);
   });
 
   // Modal de cancelación
-  cancelarCita.addEventListener('click', function (e) {
+  cancelarCita.addEventListener('click', function(e) {
     e.preventDefault();
     cancelarModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Bloquear scroll
+    document.body.style.overflow = 'hidden';
   });
 
-  cancelarNo.addEventListener('click', function () {
-    cancelarModal.classList.add('hidden');
-    document.body.style.overflow = 'auto'; // Restaurar scroll
-  });
-
-  cancelarSi.addEventListener('click', function () {
+  cancelarNo.addEventListener('click', function() {
     cancelarModal.classList.add('hidden');
     document.body.style.overflow = 'auto';
-    window.location.href = '/views/index.html';
   });
 
-  // Cerrar modal al hacer click fuera
-  cancelarModal.addEventListener('click', function (e) {
+  cancelarSi.addEventListener('click', function() {
+    cancelarModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    window.location.href = '/Frontend/views/index.html';
+  });
+
+  cancelarModal.addEventListener('click', function(e) {
     if (e.target === cancelarModal) {
       cancelarModal.classList.add('hidden');
       document.body.style.overflow = 'auto';

@@ -1,5 +1,6 @@
 /* Estilos generales */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -21,7 +22,7 @@ main {
 
 footer {
   margin-top: auto;
-  
+
   padding: 1.5rem 0;
 }
 
@@ -44,7 +45,8 @@ main ul li.styledecornone {
 }
 
 .accordion-content:not(.hidden) {
-  max-height: 2000px; /* Valor suficientemente grande */
+  max-height: 2000px;
+  /* Valor suficientemente grande */
 }
 
 .accordion-header {
@@ -120,7 +122,7 @@ main ul li.styledecornone {
   pointer-events: auto;
 }
 
-#cancelarModal > div {
+#cancelarModal>div {
   background-color: white;
   border-radius: 0.5rem;
   padding: 2rem;
@@ -131,7 +133,7 @@ main ul li.styledecornone {
   transition: transform 0.3s ease;
 }
 
-#cancelarModal:not(.hidden) > div {
+#cancelarModal:not(.hidden)>div {
   transform: translateY(0);
 }
 
@@ -171,27 +173,27 @@ main ul li.styledecornone {
   body {
     padding: 0;
   }
-  
+
   main {
     padding: 0 1rem;
   }
-  
+
   footer {
     padding: 1rem;
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
-  
+
   #footer-container {
     flex-shrink: 0;
-}
+  }
 
   .accordion-header {
     padding: 0.75rem;
   }
 
-  #cancelarModal > div {
+  #cancelarModal>div {
     padding: 1.5rem;
     width: 95%;
   }
@@ -201,17 +203,43 @@ main ul li.styledecornone {
   #cancelarModal h3 {
     font-size: 1.1rem;
   }
-  
-  #cancelarNo, #cancelarSi {
+
+  #cancelarNo,
+  #cancelarSi {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
 }
 
- .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-menu a {
-    transition: background-color 0.2s;
-  }
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  transition: background-color 0.2s;
+}
+
+/* Estilos para los dropdowns */
+.dropdown-menu {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.2s ease;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Asegurar que el submenú del administrador no se salga de la pantalla */
+.dropdown:last-child .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+section div div div button i.sizebtn{
+  margin-top: 4px;
+  font-size: 20px;
+}
