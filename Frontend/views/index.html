@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verificación Puebla</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/Frontend/css/estilos.css">
 </head>
 
 <body class="bg-white text-gray-800 min-h-screen flex flex-col">
@@ -45,10 +45,12 @@
         </label>
       </div>
     </div>
-    <a href="/views/agender_cita.html">
-      <button class="float-right mr-14 h-[48px] px-4 bg-[#570e28] text-white rounded-full text-lg font-semibold">
+    <a href="/Frontend/views/agender_cita.html">
+      <button id="btn-agendar" disabled
+        class="float-right mr-14 h-[48px] px-4 bg-gray-400 text-white rounded-full text-lg font-semibold cursor-not-allowed">
         Agendar
       </button>
+
     </a>
 
 
@@ -62,14 +64,14 @@
     // Función para cargar los partials
     function loadPartials() {
       // Cargar header
-      fetch('/partials/header.html')
+      fetch('/Frontend/partials/header.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('header-container').innerHTML = data;
         });
 
       // Cargar footer
-      fetch('/partials/footer.html')
+      fetch('/Frontend/partials/footer.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('footer-container').innerHTML = data;
@@ -79,6 +81,27 @@
     // Llamar a la función cuando se cargue la página
     window.onload = loadPartials;
   </script>
+
+  <script>
+  // Activar o desactivar botón según el checkbox
+  document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('acepto');
+    const button = document.getElementById('btn-agendar');
+
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        button.disabled = false;
+        button.classList.remove('bg-gray-400', 'cursor-not-allowed');
+        button.classList.add('bg-[#570e28]', 'cursor-pointer');
+      } else {
+        button.disabled = true;
+        button.classList.add('bg-gray-400', 'cursor-not-allowed');
+        button.classList.remove('bg-[#570e28]', 'cursor-pointer');
+      }
+    });
+  });
+</script>
+
 </body>
 
 </html>
